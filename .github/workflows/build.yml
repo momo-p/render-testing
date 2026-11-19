@@ -26,7 +26,8 @@ jobs:
           docker run --rm "$IMAGE:latest" sh -c '
             blender -b --version &&
             ffmpeg -version | head -1 &&
-            python -c "import torch, kokoro, soundfile; from diffusers import Flux2KleinPipeline; print(\"torch\", torch.__version__)"'
+            python -c "import torch; from diffusers import Flux2KleinPipeline; print(\"torch\", torch.__version__)" &&
+            /opt/tts/bin/python -c "import kokoro, soundfile; print(\"kokoro ok\")"'
       - name: Push
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
