@@ -20,7 +20,7 @@ RUN TORCH=$(python -c 'import torch; print(torch.__version__)') \
 # Kokoro needs transformers<5, which conflicts with the huggingface-hub version diffusers and gradio need.
 RUN python -m venv /opt/tts \
     && /opt/tts/bin/pip install torch --index-url https://download.pytorch.org/whl/cpu \
-    && /opt/tts/bin/pip install kokoro soundfile "transformers<5"
+    && /opt/tts/bin/pip install kokoro soundfile "transformers<5" hf_transfer
 
 # Model weights are downloaded at run time to a mounted volume, not baked into the image.
 ENV HF_HOME=/workspace/hf HF_HUB_ENABLE_HF_TRANSFER=1
